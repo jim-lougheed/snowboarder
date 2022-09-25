@@ -7,6 +7,7 @@ public class CrashDetector : MonoBehaviour
 {
     CircleCollider2D playerHead;
     [SerializeField] float reloadDelay = 0.5f;
+    [SerializeField] ParticleSystem crashEffect;
 
     private void Start() {
         playerHead = GetComponent<CircleCollider2D>();
@@ -14,6 +15,7 @@ public class CrashDetector : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag == "Ground" && playerHead.IsTouching(other.collider)) {
+            crashEffect.Play();
             Invoke("ReloadScene", reloadDelay);
         }
     }
